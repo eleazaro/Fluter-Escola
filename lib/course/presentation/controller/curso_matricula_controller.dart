@@ -10,7 +10,7 @@ class CursoMatriculaController extends ChangeNotifier {
 
   ValueNotifier<CursoMatriculaState> state =
       ValueNotifier<CursoMatriculaState>(CursoMatriculaState.loading);
-  late List<MatriculaEntity> _matriculas = [];
+  late final List<MatriculaEntity> _matriculas = [];
 
   List<MatriculaEntity> get matriculas => _matriculas;
 
