@@ -24,39 +24,64 @@ class _CursoDetailPageState extends State<CursoDetailPage> {
   @override
   void initState() {
     super.initState();
-    _controller.init(idCurso: widget.curso.id!);
+    _controller.init();
   }
 
   @override
   Widget build(BuildContext context) {
+    _controller.get(idCurso: widget.curso.id!);
+
     return Scaffold(
       appBar: MyAppBar(title: widget.curso.descricao),
-      body: Column(
-        children: [
-          Text(widget.curso.descricao),
-          ListView.separated(
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(_controller.matriculas[index].nome),
-                  trailing: IconButton(
-                      icon: const Icon(
-                        Icons.delete,
-                      ),
-                      onPressed: () {
-                        MyDialog(
-                          context: context,
-                          item: _controller.matriculas[index].nome,
-                        ).showMyDialog();
-                      }),
+      body: ValueListenableBuilder<CursoDetailState>(
+          valueListenable: _controller.state,
+          builder: (context, state, _) {
+            switch (state) {
+              case CursoDetailState.loading:
+                return const Center(child: CircularProgressIndicator());
+
+              case CursoDetailState.failure:
+                return const Center(child: Text('Erro'));
+
+              case CursoDetailState.empty:
+                return Center(
+                  child: Text(FixedString.emptyStudents),
                 );
-              },
-              separatorBuilder: (context, index) {
-                return const Divider();
-              },
-              itemCount: _controller.matriculas.length)
-        ],
-      ),
+
+              case CursoDetailState.success:
+                return Column(
+                  children: [
+                    Card(
+                        color: Colors.grey[300],
+                        child: Padding(
+                          padding: EdgeInsets.all(PaddingValues.xvalue),
+                          child: Center(child: Text(widget.curso.ementa)),
+                        )),
+                    ListView.separated(
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Text(_controller.matriculas[index].nome),
+                            trailing: IconButton(
+                                icon: const Icon(
+                                  Icons.delete,
+                                ),
+                                onPressed: () {
+                                  MyDialog(
+                                    context: context,
+                                    item: _controller.matriculas[index].nome,
+                                  ).showMyDialog();
+                                }),
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return const Divider();
+                        },
+                        itemCount: _controller.matriculas.length)
+                  ],
+                );
+            }
+          }),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue[600],
         onPressed: () {

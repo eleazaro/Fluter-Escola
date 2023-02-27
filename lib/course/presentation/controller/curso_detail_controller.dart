@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_escola/course/domain/entities/matricula_entity.dart';
 import 'package:flutter_escola/course/domain/services/get_matricula_curso_service.dart';
 
-enum CursoDetailState { loading, success, failure }
+enum CursoDetailState { loading, success, failure, empty }
 
 class CursoDetailController extends ChangeNotifier {
   final GetMatriculaCursoService _getMatriculaCursosService;
@@ -16,8 +16,12 @@ class CursoDetailController extends ChangeNotifier {
   CursoDetailController(
     this._getMatriculaCursosService,
   );
+  void init() async {
+    state.value = CursoDetailState.loading;
+    state.notifyListeners();
+  }
 
-  void init({required int idCurso}) async {
+  void get({required int idCurso}) async {
     state.value = CursoDetailState.loading;
 
     final serviceRequest =
@@ -25,7 +29,12 @@ class CursoDetailController extends ChangeNotifier {
     final result = serviceRequest.fold((l) => l, (r) => r);
     if (result is List<MatriculaEntity>) {
       _matriculas = result;
-      state.value = CursoDetailState.success;
+      if (_matriculas.isEmpty) {
+        state.value = CursoDetailState.empty;
+      } else {
+        state.value = CursoDetailState.success;
+      }
+
       state.notifyListeners();
     } else {
       state.value = CursoDetailState.failure;
