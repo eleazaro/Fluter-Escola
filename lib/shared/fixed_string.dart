@@ -13,4 +13,5 @@ class FixedString {
   static String menuStudent = 'Alunos';
   static String menuCourse = 'Cursos';
   static String emptyStudents = 'Sem alunos matriculados';
+  static String allStudents = 'Todos os alunos matriculados';
 }

@@ -3,12 +3,14 @@ class MatriculaEntity {
   final String nome;
   final int? idCurso;
   final int? idAluno;
+  late bool? matricular;
 
   MatriculaEntity({
     this.id,
     required this.nome,
     this.idCurso,
     this.idAluno,
+    this.matricular = false,
   });
 
   factory MatriculaEntity.fromJson(dynamic json) {

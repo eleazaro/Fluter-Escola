@@ -1,3 +1,4 @@
+import 'package:flutter_escola/aluno/entities/aluno_entity.dart';
 import 'package:flutter_escola/core/error_handling/core_failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_escola/course/domain/entities/matricula_entity.dart';
@@ -32,6 +33,34 @@ class MatriculaRepository implements IMatriculaRepository {
     } catch (exception, stacktrace) {
       return Left(throw GetMatriculaCursoException(
           stacktrace, 'GetMatriculaCurso', exception));
+    }
+  }
+
+  @override
+  Future<Either<CoreFailure, List<AlunoEntity>>> getMatriculaAluno(
+      {required int idCurso}) async {
+    final List<AlunoEntity> alunos = [];
+    var url = Uri.http('10.0.2.2:3000', '/alunos/aluno_matricula/$idCurso');
+
+    try {
+      final result = await http.get(url);
+      if (result.statusCode != 200) {
+        return throw GetMatriculaAlunoException(StackTrace.current,
+            'GetMatriculaAluno', "StatusCode: ${result.statusCode}");
+      }
+
+      var jsonResponse =
+          convert.jsonDecode(result.body) as Map<String, dynamic>;
+      var data = jsonResponse['data'];
+
+      for (var aluno in data) {
+        alunos.add(AlunoEntity.fromJson(aluno));
+      }
+
+      return Right(alunos);
+    } catch (exception, stacktrace) {
+      return Left(throw GetMatriculaAlunoException(
+          stacktrace, 'GetMatriculaAluno', exception));
     }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_escola/course/domain/entities/curso_entity.dart';
 import 'package:flutter_escola/course/presentation/controller/curso_detail_controller.dart';
+import 'package:flutter_escola/course/presentation/view/curso_matricula_page.dart';
 import 'package:flutter_escola/shared/fixed_string.dart';
 import 'package:flutter_escola/shared/padding_values.dart';
 import 'package:flutter_escola/shared/widgets/my_appbar.dart';
@@ -88,82 +89,8 @@ class _CursoDetailPageState extends State<CursoDetailPage> {
           showModalBottomSheet(
               isScrollControlled: true,
               context: context,
-              builder: (context) {
-                final listAllValue = [
-                  false,
-                  false,
-                  false,
-                  false,
-                  false,
-                  false,
-                  false,
-                  false,
-                  false,
-                  false,
-                  false,
-                  false,
-                ];
-                final controllerTitle = TextEditingController();
-
-                return Padding(
-                  padding: MediaQuery.of(context).viewInsets,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: PaddingValues.xxvalue,
-                      vertical: PaddingValues.xxxvalue,
-                    ),
-                    child: Wrap(
-                      children: [
-                        TextField(
-                          controller: controllerTitle,
-                          decoration: InputDecoration(
-                            suffixIcon: const Icon(Icons.search),
-                            hintText: FixedString.searchStudent,
-                            border: const OutlineInputBorder(),
-                          ),
-                        ),
-                        Padding(
-                            padding:
-                                EdgeInsets.only(top: PaddingValues.xxvalue),
-                            child: Container(
-                              decoration: const BoxDecoration(border: Border()),
-                              height: MediaQuery.of(context).size.height * 0.6,
-                              child: ListView.separated(
-                                  itemBuilder: (context, index) {
-                                    return CheckboxListTile(
-                                        activeColor: Colors.blue[800],
-                                        dense: true,
-                                        title: Text(
-                                            _controller.matriculas[index].nome),
-                                        value: listAllValue[index],
-                                        selected: listAllValue[index],
-                                        onChanged: (value) {
-                                          setState(() {
-                                            listAllValue[index] = value!;
-                                          });
-                                        });
-                                  },
-                                  separatorBuilder: (context, index) =>
-                                      const Divider(),
-                                  itemCount: _controller.matriculas.length),
-                            )),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: Text(FixedString.cancel)),
-                            TextButton(
-                                onPressed: () {}, child: Text(FixedString.save))
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                );
-              });
+              builder: (context) =>
+                  CursoMatriculaPage(idCurso: widget.curso.id!));
         },
         child: const Icon(
           Icons.add,

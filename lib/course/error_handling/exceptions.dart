@@ -23,3 +23,7 @@ class PutCursosException extends CoreException {
 class GetMatriculaCursoException extends CoreException {
   GetMatriculaCursoException(super.stackTrace, super.label, super.exception);
 }
+
+class GetMatriculaAlunoException extends CoreException {
+  GetMatriculaAlunoException(super.stackTrace, super.label, super.exception);
+}
