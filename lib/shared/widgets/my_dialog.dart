@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_escola/shared/fixed_string.dart';
 
 class MyDialog {
   final BuildContext context;
@@ -15,27 +16,27 @@ class MyDialog {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Row(
+          title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('ATENÇÃO'),
+              Text(FixedString.attention),
             ],
           ),
           content: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                Text('Você esta excluindo $item '),
-                const Text('Deseja realmente confirmar?'),
+                Text(FixedString.deleting + item),
+                Text(FixedString.reallyConfirm),
               ],
             ),
           ),
           actions: <Widget>[
             TextButton(
               onPressed: onConfirm,
-              child: const Text('Confirmar'),
+              child: Text(FixedString.confirm),
             ),
             TextButton(
-              child: const Text('Cancelar'),
+              child: Text(FixedString.cancel),
               onPressed: () {
                 Navigator.of(context).pop();
               },

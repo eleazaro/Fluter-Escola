@@ -1,95 +1,35 @@
+import 'package:flutter_modular/flutter_modular.dart';
+import 'global_module.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_escola/curso_page.dart';
-import 'package:flutter_escola/widgets/my_appbar.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const Core());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class Core extends StatelessWidget {
+  const Core({super.key});
+
+  static final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
+      GlobalKey<ScaffoldMessengerState>();
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFFFF6D00),
+    return ModularApp(
+      module: GlobalModule(),
+      child: MaterialApp.router(
+        scaffoldMessengerKey: rootScaffoldMessengerKey,
+        title: 'Escola',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color(0xFFFF6D00),
+              background: const Color(0xFFF8F8F8)),
+          useMaterial3: true,
         ),
-        useMaterial3: true,
+        supportedLocales: const [Locale('en', '')],
+        routeInformationParser: Modular.routeInformationParser,
+        routerDelegate: Modular.routerDelegate,
       ),
-      home: const MyHomePage(title: 'Flutter - Escola'),
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  final GlobalKey<ScaffoldState> _key = GlobalKey();
-  final String titleCurso = 'Cursos';
-  final String titleAluno = 'Alunos';
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        key: _key,
-        appBar: MyAppBar(
-          title: widget.title,
-          leading: IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {
-              _key.currentState!.openDrawer();
-            },
-          ),
-        ),
-        drawer: Drawer(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 32.0),
-            child: Column(
-              children: [
-                InkWell(
-                  child: ListTile(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CursoPage(
-                                  title: titleCurso,
-                                )),
-                      );
-                    },
-                    title: Text(titleCurso),
-                    leading: const Icon(Icons.school),
-                  ),
-                ),
-                InkWell(
-                  child: ListTile(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CursoPage(
-                                  title: titleAluno,
-                                )),
-                      );
-                    },
-                    title: Text(titleAluno),
-                    leading: const Icon(Icons.person),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        body: Container());
   }
 }
