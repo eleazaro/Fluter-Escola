@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_escola/course/domain/entities/curso_entity.dart';
 import 'package:flutter_escola/course/presentation/controller/curso_controller.dart';
 import 'package:flutter_escola/shared/fixed_string.dart';
 import 'package:flutter_escola/shared/padding_values.dart';
@@ -40,15 +41,8 @@ class _CursoPageState extends State<CursoPage> with TickerProviderStateMixin {
                     itemBuilder: (context, index) {
                       return InkWell(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => CursoDetailPage(
-                                  title: _controller.cursos[index].descricao,
-                                  description: _controller.cursos[index].ementa,
-                                ),
-                              ),
-                            );
+                            Modular.to.pushNamed('/curso/detail/',
+                                arguments: _controller.cursos[index]);
                           },
                           child: ListTile(
                             title: Text(_controller.cursos[index].descricao),
@@ -69,6 +63,16 @@ class _CursoPageState extends State<CursoPage> with TickerProviderStateMixin {
                                               title: Text(FixedString.delete),
                                               onTap: () {
                                                 MyDialog(
+                                                        onConfirm: () {
+                                                          _controller.delete(
+                                                              curso: _controller
+                                                                      .cursos[
+                                                                  index]);
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
                                                         context: context,
                                                         item: _controller
                                                             .cursos[index]
@@ -111,7 +115,10 @@ class _CursoPageState extends State<CursoPage> with TickerProviderStateMixin {
                                                           ),
                                                           child: Wrap(
                                                             children: [
-                                                              TextField(
+                                                              TextFormField(
+                                                                textCapitalization:
+                                                                    TextCapitalization
+                                                                        .words,
                                                                 controller:
                                                                     controllerTitle,
                                                                 decoration:
@@ -156,7 +163,19 @@ class _CursoPageState extends State<CursoPage> with TickerProviderStateMixin {
                                                                               .cancel)),
                                                                   TextButton(
                                                                       onPressed:
-                                                                          () {},
+                                                                          () {
+                                                                        _controller
+                                                                            .put(
+                                                                          curso: CursoEntity(
+                                                                              descricao: controllerTitle.text,
+                                                                              ementa: controllerDescription.text,
+                                                                              id: _controller.cursos[index].id),
+                                                                          index:
+                                                                              index,
+                                                                        );
+                                                                        Navigator.of(context)
+                                                                            .pop();
+                                                                      },
                                                                       child: Text(
                                                                           FixedString
                                                                               .alter))
@@ -188,8 +207,6 @@ class _CursoPageState extends State<CursoPage> with TickerProviderStateMixin {
               case CursoState.failure:
                 return const Center(child: Text('Erro'));
             }
-
-            ////
           }),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue[600],
@@ -209,7 +226,8 @@ class _CursoPageState extends State<CursoPage> with TickerProviderStateMixin {
                     ),
                     child: Wrap(
                       children: [
-                        TextField(
+                        TextFormField(
+                          textCapitalization: TextCapitalization.words,
                           controller: controllerTitle,
                           decoration: InputDecoration(
                             hintText: FixedString.course,
@@ -239,7 +257,14 @@ class _CursoPageState extends State<CursoPage> with TickerProviderStateMixin {
                                 },
                                 child: Text(FixedString.cancel)),
                             TextButton(
-                                onPressed: () {}, child: Text(FixedString.save))
+                                onPressed: () {
+                                  _controller.post(
+                                      curso: CursoEntity(
+                                          descricao: controllerTitle.text,
+                                          ementa: controllerDescription.text));
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text(FixedString.save))
                           ],
                         )
                       ],

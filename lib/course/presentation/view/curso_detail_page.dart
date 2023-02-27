@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_escola/course/domain/entities/curso_entity.dart';
+import 'package:flutter_escola/course/presentation/controller/curso_detail_controller.dart';
 import 'package:flutter_escola/shared/fixed_string.dart';
 import 'package:flutter_escola/shared/padding_values.dart';
 import 'package:flutter_escola/shared/widgets/my_appbar.dart';
 import 'package:flutter_escola/shared/widgets/my_dialog.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class CursoDetailPage extends StatefulWidget {
-  final String title;
-  final String description;
+  final CursoEntity curso;
+
   const CursoDetailPage({
     super.key,
-    required this.title,
-    required this.description,
+    required this.curso,
   });
 
   @override
@@ -18,64 +20,41 @@ class CursoDetailPage extends StatefulWidget {
 }
 
 class _CursoDetailPageState extends State<CursoDetailPage> {
-  final _list = ['Aluno 1', 'Aluno 2', 'Aluno 3'];
-  final _listAll = [
-    'Aluno 1',
-    'Aluno 2',
-    'Aluno 3',
-    'Aluno 1',
-    'Aluno 2',
-    'Aluno 3',
-    'Aluno 1',
-    'Aluno 2',
-    'Aluno 3',
-    'Aluno 1',
-    'Aluno 2',
-    'Aluno 3'
-  ];
+  final CursoDetailController _controller = Modular.get();
+  @override
+  void initState() {
+    super.initState();
+    _controller.init(idCurso: widget.curso.id!);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(title: widget.title),
+      appBar: MyAppBar(title: widget.curso.descricao),
       body: Column(
         children: [
-          Text(widget.description),
+          Text(widget.curso.descricao),
           ListView.separated(
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CursoDetailPage(
-                          title: _list[index],
-                          description:
-                              'Ementa do curso esta com um total de 50 caracteres',
-                        ),
+                return ListTile(
+                  title: Text(_controller.matriculas[index].nome),
+                  trailing: IconButton(
+                      icon: const Icon(
+                        Icons.delete,
                       ),
-                    );
-                  },
-                  child: ListTile(
-                    title: Text(_list[index]),
-                    trailing: IconButton(
-                        icon: const Icon(
-                          Icons.delete,
-                        ),
-                        onPressed: () {
-                          MyDialog(
-                            context: context,
-                            item: _list[index],
-                          ).showMyDialog();
-                        }),
-                  ),
+                      onPressed: () {
+                        MyDialog(
+                          context: context,
+                          item: _controller.matriculas[index].nome,
+                        ).showMyDialog();
+                      }),
                 );
               },
               separatorBuilder: (context, index) {
                 return const Divider();
               },
-              itemCount: _list.length)
+              itemCount: _controller.matriculas.length)
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -129,7 +108,8 @@ class _CursoDetailPageState extends State<CursoDetailPage> {
                                     return CheckboxListTile(
                                         activeColor: Colors.blue[800],
                                         dense: true,
-                                        title: Text(_listAll[index]),
+                                        title: Text(
+                                            _controller.matriculas[index].nome),
                                         value: listAllValue[index],
                                         selected: listAllValue[index],
                                         onChanged: (value) {
@@ -140,7 +120,7 @@ class _CursoDetailPageState extends State<CursoDetailPage> {
                                   },
                                   separatorBuilder: (context, index) =>
                                       const Divider(),
-                                  itemCount: _listAll.length),
+                                  itemCount: _controller.matriculas.length),
                             )),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

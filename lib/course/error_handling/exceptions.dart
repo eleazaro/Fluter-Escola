@@ -7,3 +7,19 @@ class GetCursoByIdException extends CoreException {
 class GetCursosException extends CoreException {
   GetCursosException(super.stackTrace, super.label, super.exception);
 }
+
+class PostCursosException extends CoreException {
+  PostCursosException(super.stackTrace, super.label, super.exception);
+}
+
+class DeleteCursosException extends CoreException {
+  DeleteCursosException(super.stackTrace, super.label, super.exception);
+}
+
+class PutCursosException extends CoreException {
+  PutCursosException(super.stackTrace, super.label, super.exception);
+}
+
+class GetMatriculaCursoException extends CoreException {
+  GetMatriculaCursoException(super.stackTrace, super.label, super.exception);
+}

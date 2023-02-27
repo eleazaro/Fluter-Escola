@@ -1,10 +1,10 @@
 class CursoEntity {
-  final int id;
+  final int? id;
   final String descricao;
   final String ementa;
 
   CursoEntity({
-    required this.id,
+    this.id,
     required this.descricao,
     required this.ementa,
   });
@@ -16,4 +16,10 @@ class CursoEntity {
       ementa: json['ementa'],
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        if (id != null) 'id': id,
+        'descricao': descricao,
+        'ementa': ementa,
+      };
 }
