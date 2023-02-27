@@ -22,6 +22,7 @@ class CursoDetailPage extends StatefulWidget {
 
 class _CursoDetailPageState extends State<CursoDetailPage> {
   final CursoDetailController _controller = Modular.get();
+
   @override
   void initState() {
     super.initState();

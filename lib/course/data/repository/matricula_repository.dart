@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_escola/aluno/entities/aluno_entity.dart';
 import 'package:flutter_escola/core/error_handling/core_failure.dart';
 import 'package:dartz/dartz.dart';
@@ -61,6 +63,31 @@ class MatriculaRepository implements IMatriculaRepository {
     } catch (exception, stacktrace) {
       return Left(throw GetMatriculaAlunoException(
           stacktrace, 'GetMatriculaAluno', exception));
+    }
+  }
+
+  @override
+  Future<Either<CoreFailure, List<MatriculaEntity>>> post(
+      {required List<MatriculaEntity> matriculas}) async {
+    var url = Uri.http('10.0.2.2:3000', '/matricula/');
+    final List<MatriculaEntity> resultList = [];
+
+    try {
+      final result = await http.post(
+        url,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(matriculas),
+      );
+      if (result.statusCode != 200) {
+        return throw PostMatriculaException(StackTrace.current, 'PostMatricula',
+            "StatusCode: ${result.statusCode}");
+      }
+
+      return Right(resultList);
+    } catch (exception, stacktrace) {
+      return Left(throw GetCursosException(stacktrace, 'GetCursos', exception));
     }
   }
 }

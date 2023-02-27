@@ -17,6 +17,7 @@ class CursoMatriculaPage extends StatefulWidget {
 
 class _CursoMatriculaPageState extends State<CursoMatriculaPage> {
   final CursoMatriculaController _controller = Modular.get();
+
   @override
   void initState() {
     super.initState();
@@ -98,7 +99,11 @@ class _CursoMatriculaPageState extends State<CursoMatriculaPage> {
                               },
                               child: Text(FixedString.cancel)),
                           TextButton(
-                              onPressed: () {}, child: Text(FixedString.save))
+                              onPressed: () {
+                                _controller.post(idCurso: widget.idCurso);
+                                Navigator.of(context).pop();
+                              },
+                              child: Text(FixedString.save))
                         ],
                       )
                     ],

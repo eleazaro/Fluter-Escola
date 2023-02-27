@@ -6,6 +6,10 @@ import 'package:flutter_escola/course/domain/entities/matricula_entity.dart';
 abstract class IMatriculaRepository {
   Future<Either<CoreFailure, List<MatriculaEntity>>> getMatriculaByIdCurso(
       {required int idCurso});
+
   Future<Either<CoreFailure, List<AlunoEntity>>> getMatriculaAluno(
       {required int idCurso});
+
+  Future<Either<CoreFailure, List<MatriculaEntity>>> post(
+      {required List<MatriculaEntity> matriculas});
 }

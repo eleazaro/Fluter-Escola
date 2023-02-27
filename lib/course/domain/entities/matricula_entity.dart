@@ -3,7 +3,7 @@ class MatriculaEntity {
   final String nome;
   final int? idCurso;
   final int? idAluno;
-  late bool? matricular;
+  late bool matricular;
 
   MatriculaEntity({
     this.id,

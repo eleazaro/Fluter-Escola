@@ -8,8 +8,6 @@ import 'package:flutter_escola/shared/widgets/my_appbar.dart';
 import 'package:flutter_escola/shared/widgets/my_dialog.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'curso_detail_page.dart';
-
 class CursoPage extends StatefulWidget {
   final String title;
   const CursoPage({super.key, required this.title});

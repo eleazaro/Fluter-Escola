@@ -27,3 +27,7 @@ class GetMatriculaCursoException extends CoreException {
 class GetMatriculaAlunoException extends CoreException {
   GetMatriculaAlunoException(super.stackTrace, super.label, super.exception);
 }
+
+class PostMatriculaException extends CoreException {
+  PostMatriculaException(super.stackTrace, super.label, super.exception);
+}

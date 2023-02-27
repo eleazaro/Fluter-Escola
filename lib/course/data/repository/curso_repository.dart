@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter_escola/core/error_handling/core_failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_escola/course/domain/entities/curso_entity.dart';
-import 'package:flutter_escola/course/domain/entities/matricula_entity.dart';
 import 'package:flutter_escola/course/domain/interfaces/icurso_repository.dart';
 import 'package:flutter_escola/course/error_handling/exceptions.dart';
 import 'dart:convert' as convert;
