@@ -70,6 +70,12 @@ class _CursoDetailPageState extends State<CursoDetailPage> {
                                 ),
                                 onPressed: () {
                                   MyDialog(
+                                    onConfirm: () {
+                                      _controller.delete(
+                                          matricula:
+                                              _controller.matriculas[index]);
+                                      Navigator.of(context).pop();
+                                    },
                                     context: context,
                                     item: _controller.matriculas[index].nome,
                                   ).showMyDialog();

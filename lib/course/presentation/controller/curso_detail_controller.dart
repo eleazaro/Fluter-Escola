@@ -1,11 +1,13 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_escola/course/domain/entities/matricula_entity.dart';
+import 'package:flutter_escola/course/domain/services/delete_matricula_service.dart';
 import 'package:flutter_escola/course/domain/services/get_matricula_curso_service.dart';
 
 enum CursoDetailState { loading, success, failure, empty }
 
 class CursoDetailController extends ChangeNotifier {
   final GetMatriculaCursoService _getMatriculaCursosService;
+  final DeleteMatriculaService _deleteMatriculaService;
 
   ValueNotifier<CursoDetailState> state =
       ValueNotifier<CursoDetailState>(CursoDetailState.loading);
@@ -15,6 +17,7 @@ class CursoDetailController extends ChangeNotifier {
 
   CursoDetailController(
     this._getMatriculaCursosService,
+    this._deleteMatriculaService,
   );
   void init() async {
     state.value = CursoDetailState.loading;
@@ -42,48 +45,18 @@ class CursoDetailController extends ChangeNotifier {
     }
   }
 
-  // void post({required CursoEntity curso}) async {
-  //   state.value = CursoState.loading;
+  void delete({required MatriculaEntity matricula}) async {
+    state.value = CursoDetailState.loading;
 
-  //   final serviceRequest = await _postCursoService(curso: curso);
-  //   final result = serviceRequest.fold((l) => l, (r) => r);
-  //   if (result is CursoEntity) {
-  //     _cursos.add(result);
-  //     state.value = CursoState.success;
-  //     state.notifyListeners();
-  //   } else {
-  //     state.value = CursoState.failure;
-  //     state.notifyListeners();
-  //   }
-  // }
+    final serviceRequest = await _deleteMatriculaService(matricula: matricula);
 
-  // void delete({required CursoEntity curso}) async {
-  //   state.value = CursoState.loading;
-
-  //   final serviceRequest = await _deleteCursoService(curso: curso);
-  //   final result = serviceRequest.fold((l) => l, (r) => r);
-  //   if (result is CursoEntity) {
-  //     _cursos.remove(result);
-  //     state.value = CursoState.success;
-  //     state.notifyListeners();
-  //   } else {
-  //     state.value = CursoState.failure;
-  //     state.notifyListeners();
-  //   }
-  // }
-
-  // void put({required CursoEntity curso, required int index}) async {
-  //   state.value = CursoState.loading;
-
-  //   final serviceRequest = await _putCursoService(curso: curso);
-  //   final result = serviceRequest.fold((l) => l, (r) => r);
-  //   if (result is CursoEntity) {
-  //     _cursos[index] = result;
-  //     state.value = CursoState.success;
-  //     state.notifyListeners();
-  //   } else {
-  //     state.value = CursoState.failure;
-  //     state.notifyListeners();
-  //   }
-  // }
+    final result = serviceRequest.fold((l) => l, (r) => r);
+    if (result is MatriculaEntity) {
+      _matriculas.remove(result);
+      state.value = CursoDetailState.success;
+    } else {
+      state.value = CursoDetailState.failure;
+    }
+    state.notifyListeners();
+  }
 }

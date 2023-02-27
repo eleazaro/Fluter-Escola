@@ -57,7 +57,7 @@ class CursoMatriculaController extends ChangeNotifier {
   }
 
   void post({required int idCurso}) async {
-    final CursoDetailController _controllerDetail = Modular.get();
+    final CursoDetailController controllerDetail = Modular.get();
 
     state.value = CursoMatriculaState.loading;
     final List<MatriculaEntity> checkedList =
@@ -72,7 +72,7 @@ class CursoMatriculaController extends ChangeNotifier {
       state.value = CursoMatriculaState.failure;
       state.notifyListeners();
     }
-    _controllerDetail.get(idCurso: idCurso);
+    controllerDetail.get(idCurso: idCurso);
   }
 
   List<MatriculaEntity> verifyChecked(

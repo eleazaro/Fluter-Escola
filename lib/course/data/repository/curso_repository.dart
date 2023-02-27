@@ -78,7 +78,9 @@ class CursoRepository implements ICursoRepository {
 
     try {
       final result = await http.delete(url);
-      if (result.statusCode != 200) {
+      if (result.statusCode == 403) {
+        curso = CursoEntity(descricao: '', ementa: '', id: -1);
+      } else if (result.statusCode != 200) {
         return throw PostCursosException(StackTrace.current, 'DeleteCursos',
             "StatusCode: ${result.statusCode}");
       }
@@ -86,7 +88,7 @@ class CursoRepository implements ICursoRepository {
       return Right(curso);
     } catch (exception, stacktrace) {
       return Left(
-          throw GetCursosException(stacktrace, 'DeleteCursos', exception));
+          throw PostCursosException(stacktrace, 'DeleteCursos', exception));
     }
   }
 

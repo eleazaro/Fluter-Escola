@@ -1,6 +1,7 @@
 import 'package:flutter_escola/course/data/repository/curso_repository.dart';
 import 'package:flutter_escola/course/data/repository/matricula_repository.dart';
 import 'package:flutter_escola/course/domain/services/delete_curso_service.dart';
+import 'package:flutter_escola/course/domain/services/delete_matricula_service.dart';
 import 'package:flutter_escola/course/domain/services/get_curso_service.dart';
 import 'package:flutter_escola/course/domain/services/get_matricula_curso_service.dart';
 import 'package:flutter_escola/course/domain/services/post_curso_service%20copy.dart';
@@ -30,6 +31,7 @@ class CursoModule extends Module {
     Bind.lazySingleton((i) => GetMatriculaCursoService(i()), export: true),
     Bind.lazySingleton((i) => GetMatriculaAlunoService(i()), export: true),
     Bind.lazySingleton((i) => PostMatriculaService(i()), export: true),
+    Bind.lazySingleton((i) => DeleteMatriculaService(i()), export: true),
 
     /// ------------------------------- State ----------------------------------
     Bind.lazySingleton(
@@ -43,6 +45,7 @@ class CursoModule extends Module {
 
     Bind.lazySingleton(
         (i) => CursoDetailController(
+              i(),
               i(),
             ),
         export: true),

@@ -12,4 +12,7 @@ abstract class IMatriculaRepository {
 
   Future<Either<CoreFailure, List<MatriculaEntity>>> post(
       {required List<MatriculaEntity> matriculas});
+
+  Future<Either<CoreFailure, MatriculaEntity>> delete(
+      {required MatriculaEntity matricula});
 }

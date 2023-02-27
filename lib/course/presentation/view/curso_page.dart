@@ -204,6 +204,15 @@ class _CursoPageState extends State<CursoPage> with TickerProviderStateMixin {
 
               case CursoState.failure:
                 return const Center(child: Text('Erro'));
+              case CursoState.forbidden:
+                return InkWell(
+                  onTap: () {
+                    _controller.init();
+                  },
+                  child: Container(
+                    color: Colors.red,
+                  ),
+                );
             }
           }),
       floatingActionButton: FloatingActionButton(

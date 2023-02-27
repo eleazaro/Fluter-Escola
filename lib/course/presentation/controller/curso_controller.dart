@@ -5,7 +5,7 @@ import 'package:flutter_escola/course/domain/services/get_curso_service.dart';
 import 'package:flutter_escola/course/domain/services/post_curso_service.dart';
 import 'package:flutter_escola/course/domain/services/put_curso_service.dart';
 
-enum CursoState { loading, success, failure }
+enum CursoState { loading, success, failure, forbidden }
 
 class CursoController extends ChangeNotifier {
   final GetCursoService _getCursosService;
@@ -62,8 +62,12 @@ class CursoController extends ChangeNotifier {
     final serviceRequest = await _deleteCursoService(curso: curso);
     final result = serviceRequest.fold((l) => l, (r) => r);
     if (result is CursoEntity) {
-      _cursos.remove(result);
-      state.value = CursoState.success;
+      if (result.id == -1) {
+        state.value = CursoState.forbidden;
+      } else {
+        _cursos.remove(result);
+        state.value = CursoState.success;
+      }
       state.notifyListeners();
     } else {
       state.value = CursoState.failure;

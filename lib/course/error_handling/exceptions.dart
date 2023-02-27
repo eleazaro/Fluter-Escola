@@ -31,3 +31,7 @@ class GetMatriculaAlunoException extends CoreException {
 class PostMatriculaException extends CoreException {
   PostMatriculaException(super.stackTrace, super.label, super.exception);
 }
+
+class DeleteMatriculaException extends CoreException {
+  DeleteMatriculaException(super.stackTrace, super.label, super.exception);
+}

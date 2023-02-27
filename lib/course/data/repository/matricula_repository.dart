@@ -90,4 +90,24 @@ class MatriculaRepository implements IMatriculaRepository {
       return Left(throw GetCursosException(stacktrace, 'GetCursos', exception));
     }
   }
+
+  @override
+  Future<Either<CoreFailure, MatriculaEntity>> delete(
+      {required MatriculaEntity matricula}) async {
+    var url = Uri.http('10.0.2.2:3000', '/matricula/${matricula.id}');
+
+    try {
+      final result = await http.delete(url);
+
+      if (result.statusCode != 200) {
+        return throw DeleteMatriculaException(StackTrace.current,
+            'DeleteMatricula', "StatusCode: ${result.statusCode}");
+      }
+
+      return Right(matricula);
+    } catch (exception, stacktrace) {
+      return Left(throw DeleteMatriculaException(
+          stacktrace, 'DeleteMatricula', exception));
+    }
+  }
 }
