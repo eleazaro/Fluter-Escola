@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_escola/aluno/entities/aluno_entity.dart';
+import 'package:flutter_escola/aluno/domain/entities/aluno_entity.dart';
 import 'package:flutter_escola/course/domain/entities/matricula_entity.dart';
 import 'package:flutter_escola/course/domain/services/get_matricula_aluno_service.dart';
-import 'package:flutter_escola/course/domain/services/post_curso_service%20copy.dart';
 import 'package:flutter_escola/course/presentation/controller/curso_detail_controller.dart';
+import 'package:flutter_escola/course/domain/services/post_matricula_service.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 enum CursoMatriculaState { loading, success, failure, empty }

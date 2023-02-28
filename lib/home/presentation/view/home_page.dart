@@ -34,25 +34,21 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.only(top: 32.0),
             child: Column(
               children: [
-                InkWell(
-                  child: ListTile(
-                    onTap: () {
-                      Modular.to.pushNamed(
-                        '/curso/Cursos',
-                      );
-                    },
-                    title: Text(FixedString.menuCourse),
-                    leading: const Icon(Icons.school),
-                  ),
+                ListTile(
+                  onTap: () {
+                    Modular.to.pushNamed(
+                      '/curso/${FixedString.menuCourse}',
+                    );
+                  },
+                  title: Text(FixedString.menuCourse),
+                  leading: const Icon(Icons.school),
                 ),
-                InkWell(
-                  child: ListTile(
-                    onTap: () {
-                      Modular.to.pushNamed('/curso/');
-                    },
-                    title: Text(FixedString.menuStudent),
-                    leading: const Icon(Icons.person),
-                  ),
+                ListTile(
+                  onTap: () {
+                    Modular.to.pushNamed('/aluno/${FixedString.menuStudent}');
+                  },
+                  title: Text(FixedString.menuStudent),
+                  leading: const Icon(Icons.person),
                 ),
               ],
             ),

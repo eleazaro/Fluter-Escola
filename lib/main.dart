@@ -26,7 +26,6 @@ class Core extends StatelessWidget {
               background: const Color(0xFFF8F8F8)),
           useMaterial3: true,
         ),
-        supportedLocales: const [Locale('en', '')],
         routeInformationParser: Modular.routeInformationParser,
         routerDelegate: Modular.routerDelegate,
       ),

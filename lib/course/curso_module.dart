@@ -4,7 +4,7 @@ import 'package:flutter_escola/course/domain/services/delete_curso_service.dart'
 import 'package:flutter_escola/course/domain/services/delete_matricula_service.dart';
 import 'package:flutter_escola/course/domain/services/get_curso_service.dart';
 import 'package:flutter_escola/course/domain/services/get_matricula_curso_service.dart';
-import 'package:flutter_escola/course/domain/services/post_curso_service%20copy.dart';
+import 'package:flutter_escola/course/domain/services/post_matricula_service.dart';
 import 'package:flutter_escola/course/domain/services/post_curso_service.dart';
 import 'package:flutter_escola/course/domain/services/put_curso_service.dart';
 import 'package:flutter_escola/course/presentation/controller/curso_controller.dart';

@@ -17,7 +17,8 @@ class CursoPage extends StatefulWidget {
 }
 
 class _CursoPageState extends State<CursoPage> with TickerProviderStateMixin {
-  final CursoController _controller = Modular.get();
+  final CursoController _controller = Modular.get<CursoController>();
+
   @override
   void initState() {
     super.initState();
