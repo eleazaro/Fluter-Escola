@@ -3,9 +3,9 @@ import 'package:flutter_escola/aluno/domain/services/delete_aluno_service.dart';
 import 'package:flutter_escola/aluno/domain/services/get_aluno_service.dart';
 import 'package:flutter_escola/aluno/domain/services/post_aluno_service.dart';
 import 'package:flutter_escola/aluno/domain/services/put_aluno_service.dart';
-import 'package:flutter_escola/aluno/presentation/controller/aluno_page_controller.dart';
 import 'package:flutter_escola/aluno/presentation/view/aluno_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'presentation/controller/aluno_page_controller.dart';
 
 class AlunoModule extends Module {
   @override

@@ -7,6 +7,7 @@ class GlobalModule extends Module {
   @override
   List<Module> imports = [
     CursoModule(),
+    AlunoModule(),
   ];
 
   @override
