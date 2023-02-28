@@ -4,6 +4,7 @@ import 'package:flutter_escola/aluno/domain/entities/aluno_entity.dart';
 import 'package:flutter_escola/aluno/presentation/controller/aluno_page_controller.dart';
 import 'package:flutter_escola/shared/fixed_string.dart';
 import 'package:flutter_escola/shared/padding_values.dart';
+import 'package:flutter_escola/shared/widgets/animated_bottom_sheet.dart';
 import 'package:flutter_escola/shared/widgets/my_appbar.dart';
 import 'package:flutter_escola/shared/widgets/my_dialog.dart';
 
@@ -179,13 +180,12 @@ class _AlunoPageState extends State<AlunoPage> with TickerProviderStateMixin {
                 return const Center(child: Text('Erro'));
               case AlunoState.forbidden:
                 return InkWell(
-                  onTap: () {
-                    _controller.init();
-                  },
-                  child: Container(
-                    color: Colors.red,
-                  ),
-                );
+                    onTap: () {
+                      _controller.init();
+                    },
+                    child: AnimatedBottomSheet(
+                        onShow: () => _controller.init(),
+                        description: FixedString.haveCourse));
             }
           }),
       floatingActionButton: FloatingActionButton(
