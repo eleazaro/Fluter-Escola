@@ -20,6 +20,7 @@ dependencies:
   http: ^0.13.5
   flutter_modular: ^5.0.3
   mocktail: ^0.3.0
+  modular_test: ^2.0.0
 
 dev_dependencies:
   flutter_test:

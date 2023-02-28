@@ -1,3 +1,4 @@
+import 'package:flutter_escola/shared/fixed_string.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'global_module.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class Core extends StatelessWidget {
       module: GlobalModule(),
       child: MaterialApp.router(
         scaffoldMessengerKey: rootScaffoldMessengerKey,
-        title: 'Escola',
+        title: FixedString.appTitle,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
               seedColor: const Color(0xFFFF6D00),

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_escola/aluno/domain/entities/aluno_entity.dart';
 import 'package:flutter_escola/aluno/domain/interfaces/ialuno_repository.dart';
 import 'package:flutter_escola/aluno/error_handling/exceptions.dart';
+import 'package:flutter_escola/aluno/error_handling/failure.dart';
 import 'package:flutter_escola/core/error_handling/core_failure.dart';
 import 'package:dartz/dartz.dart';
 import 'dart:convert' as convert;
@@ -15,23 +16,27 @@ class AlunoRepository implements IAlunoRepository {
     var url = Uri.http('10.0.2.2:3000', '/alunos/');
 
     try {
-      final result = await http.get(url);
-      if (result.statusCode != 200) {
-        return throw GetAlunosException(StackTrace.current, 'GetAlunos',
-            "StatusCode: ${result.statusCode}");
+      try {
+        final result = await http.get(url);
+        if (result.statusCode != 200) {
+          throw GetAlunosException(StackTrace.current, 'GetAlunos',
+              "StatusCode: ${result.statusCode}");
+        }
+
+        var jsonResponse =
+            convert.jsonDecode(result.body) as Map<String, dynamic>;
+        var data = jsonResponse['data'];
+
+        for (var aluno in data) {
+          alunos.add(AlunoEntity.fromJson(aluno));
+        }
+
+        return Right(alunos);
+      } catch (exception, stacktrace) {
+        throw GetAlunosException(stacktrace, 'GetAlunos', exception);
       }
-
-      var jsonResponse =
-          convert.jsonDecode(result.body) as Map<String, dynamic>;
-      var data = jsonResponse['data'];
-
-      for (var aluno in data) {
-        alunos.add(AlunoEntity.fromJson(aluno));
-      }
-
-      return Right(alunos);
-    } catch (exception, stacktrace) {
-      return Left(throw GetAlunosException(stacktrace, 'GetAlunos', exception));
+    } catch (e) {
+      return Left(GetAlunosFailure());
     }
   }
 

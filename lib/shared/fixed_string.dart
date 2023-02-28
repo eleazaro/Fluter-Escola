@@ -18,4 +18,5 @@ class FixedString {
   static String haveStudent = 'Possui alunos matriculados';
   static String haveCourse = 'Possui cursos matriculados';
   static String hasProblem = 'Houve um problema tente mais tarde';
+  static String appTitle = 'Escola';
 }
