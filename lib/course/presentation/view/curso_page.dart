@@ -62,10 +62,10 @@ class _CursoPageState extends State<CursoPage> with TickerProviderStateMixin {
                     itemCount: _controller.cursos.length);
 
               case CursoState.loading:
-                return const CircularProgressIndicator();
+                return const Center(child: CircularProgressIndicator());
 
               case CursoState.failure:
-                return const Center(child: Text('Erro'));
+                return Center(child: Text(FixedString.hasProblem));
 
               case CursoState.forbidden:
                 return AnimatedBottomSheet(
