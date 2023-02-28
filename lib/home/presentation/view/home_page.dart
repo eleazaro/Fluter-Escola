@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_escola/chart.dart';
+import 'package:flutter_escola/shared/widgets/chart.dart';
 import 'package:flutter_escola/shared/fixed_string.dart';
 import 'package:flutter_escola/shared/widgets/my_appbar.dart';
 import 'package:flutter_modular/flutter_modular.dart';

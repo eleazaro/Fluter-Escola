@@ -1,7 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-import 'shared/widgets/indicator.dart';
+import 'indicator.dart';
 
 class Chart extends StatefulWidget {
   const Chart({super.key});
