@@ -1,7 +1,7 @@
 # Escola
 
 Projeto flutter para cadastro de curso aluno e matricular aluno em curso.
-É possível adicionar, excluir e alterar curso e aluno, para deletar deve-se olhar se o curso não tem nenhum aluno matriculado e para aluno se ele não está matricula em um curso.
+É possível adicionar, excluir e alterar curso e aluno, para deletar deve-se olhar se o curso não tem nenhum aluno matriculado e para aluno se ele não está matriculado em um curso.
 Para realizar uma matricula deve-se acessar o menu na pagina inicial "Cursos" clickar em um curso lista e acionar o floating action button para listar alunos que nao estao no curso, podendo utilizar o checkbox para adicionar mais de um ao mesmo tempo e salvar.
 
 ## Consultar Servidor
